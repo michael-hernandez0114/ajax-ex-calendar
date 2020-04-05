@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     var htmlGiorno = $('#calendar-template').html();
     var templateGiorno = Handlebars.compile(htmlGiorno);
+    var annoEValido;
+    var errorMessage;
 
     // Stampare il mese di Gennaio 2018
     // Tramite click stampare il mese successivo
@@ -11,11 +13,60 @@ $(document).ready(function () {
     stampaFestivi(dataIniziale.month());
 
     $('.mese-succ').click(function () {
-        dataIniziale.add(1, 'month');
+        var dateCopy = dataIniziale.clone();
+
+
+        //console.log('dataIniziale mese has: ' + dataIniziale.month());
+        //console.log('dataIniziale anno has: ' + dataIniziale.year());
+        //console.log('dateCopy mese has: ' + dateCopy.month());
+        //console.log('dateCopy anno has: ' + dateCopy.year());
+
+        dateCopy.add(1, 'month');
+        annoValido(dateCopy.month(),dateCopy.year());
+
+        if (annoEValido) {
+            dataIniziale.add(1, 'month');
+            stampaGiorniMese(dataIniziale);
+            stampaFestivi(dataIniziale.month());
+        }
+        else {
+            alert(errorMessage);
+        }
+
+        //console.log('after add dataIniziale mese has: ' + dataIniziale.month());
+        //console.log('after add dataIniziale anno has: ' + dataIniziale.year());
+
+
+    });
+
+    $('.mese-prec').click(function () {
+        dataIniziale.subtract(1, 'month');
+        //console.log('dataIniziale mese has: ' + dataIniziale.month());
+        //console.log('dataIniziale anno has: ' + dataIniziale.year());
         stampaGiorniMese(dataIniziale);
         stampaFestivi(dataIniziale.month());
 
     });
+
+    function annoValido(mese, anno) {
+
+        $.ajax({
+            url: 'https://flynn.boolean.careers/exercises/api/holidays',
+            method: 'GET',
+            data: {
+                year: anno,
+                month: mese
+            },
+            async: false,
+            success: function (data) {
+                //console.log("success has: " + data.success);
+                //console.log("error has: " + data.error);
+                annoEValido = data.success;
+                errorMessage = data.error;
+                }
+        });
+
+    }
 
     function stampaFestivi(mese) {
         $.ajax({
