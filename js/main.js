@@ -14,8 +14,6 @@ $(document).ready(function () {
 
     $('.mese-succ').click(function () {
         var dateCopy = dataIniziale.clone();
-
-
         //console.log('dataIniziale mese has: ' + dataIniziale.month());
         //console.log('dataIniziale anno has: ' + dataIniziale.year());
         //console.log('dateCopy mese has: ' + dateCopy.month());
@@ -40,11 +38,22 @@ $(document).ready(function () {
     });
 
     $('.mese-prec').click(function () {
-        dataIniziale.subtract(1, 'month');
-        //console.log('dataIniziale mese has: ' + dataIniziale.month());
-        //console.log('dataIniziale anno has: ' + dataIniziale.year());
-        stampaGiorniMese(dataIniziale);
-        stampaFestivi(dataIniziale.month());
+        var dateCopy = dataIniziale.clone();
+
+        dateCopy.subtract(1, 'month');
+        annoValido(dateCopy.month(),dateCopy.year());
+
+        if (annoEValido) {
+            dataIniziale.subtract(1, 'month');
+            //console.log('dataIniziale mese has: ' + dataIniziale.month());
+            //console.log('dataIniziale anno has: ' + dataIniziale.year());
+            stampaGiorniMese(dataIniziale);
+            stampaFestivi(dataIniziale.month());
+        }
+        else {
+            alert(errorMessage);
+        }
+
 
     });
 
