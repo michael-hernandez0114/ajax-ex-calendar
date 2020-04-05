@@ -8,20 +8,22 @@ $(document).ready(function () {
 
     var dataIniziale = moment('2018-01-01');
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
-    stampaFestivi();
+    stampaFestivi(dataIniziale.month());
 
     $('.mese-succ').click(function () {
         dataIniziale.add(1, 'month');
         stampaGiorniMese(dataIniziale);
+        stampaFestivi(dataIniziale.month());
+
     });
 
-    function stampaFestivi() {
+    function stampaFestivi(mese) {
         $.ajax({
             url: 'https://flynn.boolean.careers/exercises/api/holidays',
             method: 'GET',
             data: {
                 year: 2018,
-                month: 0
+                month: mese
             },
             success: function (data) {
                 var giorniFestivi = data.response;
