@@ -1,8 +1,15 @@
+* {
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .top-calendar,
 .main-calendar {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 
 }
 
@@ -21,13 +28,16 @@
 }
 
 .container {
-    width: 600px;
+    width: 800px;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .card {
     width: calc(100% / 7);
-    height: 15px;
+
+    border: 1px solid black;
+    display: inline-block;
 }
 /*
 #calendar-names-of-days li {
@@ -39,7 +49,7 @@
 #calendar-names-of-days .card,
 #nome-mese {
     text-transform: capitalize;
-    list-style: none;
+
 }
 
 .festivo {

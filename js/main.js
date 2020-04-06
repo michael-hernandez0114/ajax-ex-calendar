@@ -98,7 +98,7 @@ $(document).ready(function () {
     }
 
     function stampaGiorniMese(meseDaStampare) {
-        $('.calendar-days').empty();
+        $('.calendar-card').remove();
         var standardDay = meseDaStampare.clone();
         var giorniMese = meseDaStampare.daysInMonth();
         var nomeMese = meseDaStampare.format('MMMM');
@@ -120,18 +120,39 @@ $(document).ready(function () {
 
 
         $('#nome-mese').text(nomeMese); // Aggiorniamo il nome del mese in top calendar
-        /*
+
+        // populate an empty day of the week for any days prior to the first day of the month
+        for (var i = 0; i < firstDayOfMonth; i++) {
+            var giornoDaInserire = {
+                day: '',
+                dataDay: 'not-on-calendar'
+            }
+            var templateFinale = templateGiorno(giornoDaInserire); // Stiamo popolando il template con i dati dell'oggetto
+            $('.container').append(templateFinale);
+        }
+
+        //print the days of week which are on the calender
         for (var i = 1; i <= giorniMese; i++) {
             // $('#calendar').append('<li>' + i + ' ' + nomeMese + '</li>');
             var giornoDaInserire = {
-                day: i + ' ' + nomeMese,
+                day: i,
                 dataDay: standardDay.format('YYYY-MM-DD')
             }
             var templateFinale = templateGiorno(giornoDaInserire); // Stiamo popolando il template con i dati dell'oggetto
-            $('.main-calendar').append(templateFinale);
+            $('.container').append(templateFinale);
             standardDay.add(1, 'day');
         }
-        */
+
+        // populate an empty day on the calender for any day after the last day for the current week
+        for (var i = lastDayOfMonth + 1; i <= 6; i++) {
+            var giornoDaInserire = {
+                day: '',
+                dataDay: 'not-on-calendar'
+            }
+            var templateFinale = templateGiorno(giornoDaInserire); // Stiamo popolando il template con i dati dell'oggetto
+            $('.container').append(templateFinale);
+        }
+        $('.container div[data-day="' + 'not-on-calendar' + '"]').addClass('not-used');
     }
 
 });
