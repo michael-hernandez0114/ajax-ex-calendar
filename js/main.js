@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     var dataIniziale = moment('2018-01-01');
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
-    //stampaFestivi(dataIniziale.month());
+    stampaFestivi(dataIniziale.month());
 
     $('.mese-succ').click(function () {
         var dateCopy = dataIniziale.clone();
@@ -91,7 +91,7 @@ $(document).ready(function () {
                     var giornoFestivo = giorniFestivi[i];
                     var nomeFestivo = giornoFestivo.name;
                     var dataFestivo = giornoFestivo.date;
-                    $('#calendar li[data-day="' + dataFestivo + '"]').addClass('festivo').append(' - ' + nomeFestivo);
+                    $('.container div[data-day="' + dataFestivo + '"]').addClass('festivo').append(' - ' + nomeFestivo);
                 }
             }
         });
