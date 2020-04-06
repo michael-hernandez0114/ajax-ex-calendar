@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     var dataIniziale = moment('2018-01-01');
     stampaGiorniMese(dataIniziale); // Inizializzazione Calendario
-    stampaFestivi(dataIniziale.month());
+    //stampaFestivi(dataIniziale.month());
 
     $('.mese-succ').click(function () {
         var dateCopy = dataIniziale.clone();
@@ -98,11 +98,29 @@ $(document).ready(function () {
     }
 
     function stampaGiorniMese(meseDaStampare) {
-        $('#calendar').empty();
+        $('.calendar-days').empty();
         var standardDay = meseDaStampare.clone();
         var giorniMese = meseDaStampare.daysInMonth();
         var nomeMese = meseDaStampare.format('MMMM');
+        var meseTwoDigits = meseDaStampare.format('MM');
+        var currYear = meseDaStampare.year();
+
+        var firstDayOfMonth = moment('\'' + currYear + '-' + meseTwoDigits + '-' + '01' + '\'').day();
+        var lastDayOfMonth = moment('\'' +currYear + '-' + meseTwoDigits + '-' + giorniMese + '\'').day();
+
+        // capture first and last day of current month (ex. Monday or Tuesday)
+        // use number of days in month to calculate how many weeks to process
+        // create loop to go through each week and assign a class for each day
+        // any days in the week that are not in the week assign gray class
+        //console.log('\'' + meseDaStampare.year() + '-' + meseTwoDigits + '-' + '01' + '\'');
+        //console.log(moment('\'' + currYear + '-' + meseTwoDigits + '-' + '12' + '\'').day());
+        console.log(firstDayOfMonth);
+        console.log(lastDayOfMonth);
+
+
+
         $('#nome-mese').text(nomeMese); // Aggiorniamo il nome del mese in top calendar
+        /*
         for (var i = 1; i <= giorniMese; i++) {
             // $('#calendar').append('<li>' + i + ' ' + nomeMese + '</li>');
             var giornoDaInserire = {
@@ -110,9 +128,10 @@ $(document).ready(function () {
                 dataDay: standardDay.format('YYYY-MM-DD')
             }
             var templateFinale = templateGiorno(giornoDaInserire); // Stiamo popolando il template con i dati dell'oggetto
-            $('#calendar').append(templateFinale);
+            $('.main-calendar').append(templateFinale);
             standardDay.add(1, 'day');
         }
+        */
     }
 
 });

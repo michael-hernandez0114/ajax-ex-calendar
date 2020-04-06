@@ -18,13 +18,23 @@
             </div>
         </div>
         <div class="main-calendar">
-            <ul id="calendar">
+            <div id="calendar-names-of-days" class='container'>
+                <div class='card'>S</div>
+                <div class='card'>M</div>
+                <div class='card'>T</div>
+                <div class='card'>W</div>
+                <div class='card'>T</div>
+                <div class='card'>F</div>
+                <div class='card'>S</div>
+            </div>
 
-            </ul>
         </div>
 
         <script id="calendar-template" type="text/x-handlebars-template">
-            <li data-day="{{dataDay}}"> {{day}} </li>
+
+                <div data-day="{{dataDay}}"> {{day}} </div>
+
+
         </script>
 
 

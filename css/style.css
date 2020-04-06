@@ -3,14 +3,49 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+
 }
 
-#calendar li,
+.btn-navigation {
+     padding: 5px 20px;
+     border-radius: 5px;
+     background-color: purple;
+     color: white;
+     border: none;
+     cursor: pointer;
+}
+
+.btn-navigation:disabled{
+     background-color: #efefef;
+     cursor: not-allowed;
+}
+
+.container {
+    width: 600px;
+    display: flex;
+}
+
+.card {
+    width: calc(100% / 7);
+    height: 15px;
+}
+/*
+#calendar-names-of-days li {
+    float: left;
+
+}
+*/
+
+#calendar-names-of-days .card,
 #nome-mese {
     text-transform: capitalize;
+    list-style: none;
 }
 
 .festivo {
     color: red;
+}
+
+.not-used {
+    background-color: gray;
 }
